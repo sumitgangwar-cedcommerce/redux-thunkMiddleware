@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { Button, Card, DataTable, Page } from "@shopify/polaris";
+import { useEffect } from "react";
+import { connect, useDispatch } from "react-redux";
+import "./App.css";
+import { fetchData } from "./redux/actionCreator";
 
-function App() {
+
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Page>
+      <Button onClick={() => props.fetchData()}>Fetch Data</Button>
+      <Page>
+        <Card>
+          {
+            JSON.stringify(props.data)
+          }
+        </Card>
+      </Page>
+    </Page>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => ({ ...state });
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: () => dispatch(fetchData()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

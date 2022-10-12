@@ -3,11 +3,19 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { Provider } from 'react-redux';
+import store from './redux/store';
+import '@shopify/polaris/build/esm/styles.css';
+import { AppProvider } from '@shopify/polaris';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <AppProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+    </AppProvider>
   </React.StrictMode>
 );
 
